@@ -1,98 +1,454 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Product Showcase</title>
- <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><u>Document Maintenance System</u></title>
+  <script src="script.js" defer></script>
+  <style>
+    h1 {
+        font-size: larger;
+        color: #cc0000;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+    }
+    header {
+        background-color: #007bff;
+        color: white;
+        padding: 15px 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    header input,
+    header select {
+        padding: 8px 12px;
+        border-radius: 4px;
+        border: none;
+        margin-right: 10px;
+    }
+    .tabs {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-around;
+    }
+    .tabs button {
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 16px;
+        padding: 10px 15px;
+        cursor: pointer;
+    }
+    .tabs .active-tab {
+        border-bottom: 2px solid white;
+    }
+    .container {
+        padding: 20px;
+    }
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: white;
+        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+    }
+    footer button {
+        background: none;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .add-btn {
+        font-size: 20px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: blue;
+        color: white;
+    }
+    #notifications-section {
+        margin-top: 20px;
+        background-color: #e8f0fe;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: none; /* Hide initially */
+    }
+    .file-item {
+        padding: 5px;
+        border: 1px solid #ddd;
+        margin-bottom: 5px;
+    }
+    .image-item {
+        max-width: 100%;
+        height: auto;
+        margin: 10px 0;
+    }
+    .file-link {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 14px;
+        display: block;
+        margin: 5px 0;
+    }
+    .file-link:hover {
+        text-decoration: underline;
+    }
+    .recent-folder-item {
+        background-color: #e8f0fe;
+        padding: 5px;
+        margin: 5px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .recent-folder-time {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+    }
+    .id{
+      font-size:200px;
+    }
+    /* Style for the automated backup button */
+    #backup-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 100px;
+        background-color: green;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 15px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    /* Style for Save Button */
+    #save-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 150px;
+        background-color: blue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 15px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Product Showcase</title>
-     <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-     <header>
-     <h1>Product Showcase</h1>
-     <select id="category-filter">
-     <option value="all">All</option>
-     <option value="Electronics">Electronics</option>
-     <option value="chocolates">chocolates</option>
-     <option value="Furniture">Furniture</option>
-     </select>
-     </header>
-     <main>
-     <div class="product-list">
-     <div class="product" data-category="Electronics">
-     <h3 class="product-title">Laptop</h3>
-     <p>$500</p>
-     <button class="btn-add-to-cart">Add to Cart</button>
-     </div>
-     <div class="product" data-category="Furniture">
-     <h3 class="product-title">Chair</h3>
-     <p>$100</p>
-     <button class="btn-add-to-cart">Add to Cart</button>
-     </div>
-     <div class="product" data-category="Electronics">
-     <h3 class="product-title">Smartphone</h3>
-     <p>$300</p>
-     <button class="btn-add-to-cart">Add to Cart</button>
-     </div>
-    <div class="product" data-category="chocolates">
-        <h3 class="product-title">chocolates</h3>
-        <p>$30</p>
-        <button class="btn-add-to-cart">Add to Cart</button>
-        </div> 
+  <marquee><h1 id="id" style="font-size: 20px;">: DOCUMENT MAINTENANCE SYSTEM :</h1></marquee>
+
+  <!-- Back to Login Button -->
+  <button id="back-btn" onclick="goBack()">Back to Login</button>
+
+  <header>
+    <div class="header-content">
+      <h1><img src="https://cdn-icons-png.flaticon.com/128/2965/2965323.png" height="80" DRIVE></h1>
+      <!-- Search bar with filter dropdown -->
+      <div style="display: flex; align-items: center;">
+        <input type="text" id="search-input" placeholder="Search in Drive" oninput="performSearch()"/>
+        <select id="filter-options">
+          <option value="all">All Files</option>
+          <option value="documents">Documents</option>
+          <option value="pdfs">PDFs</option>
+          <option value="photos">Photos & Images</option>
+          <option value="presentations">Presentations</option>
+          <option value="folders">Folders</option>
+          <option value="videos">Videos</option>
+          <option value="audios">Audios</option>
+          <option value="others">Others</option>
+        </select>
+      </div>
     </div>
+    <nav class="tabs">
+      <button class="active-tab" onclick="showSuggestions()">Suggestions</button>
+      <button onclick="showNotifications()">Notifications</button>
+    </nav>
+  </header>
+  <div class="container">
+    <button id="choose-folder" height="55">Choose Folder</button>
+    <!-- Hidden file input to choose a folder -->
+    <input type="file" id="folder-input" webkitdirectory multiple style="display: none;">
+    <div id="folder-contents"></div>
+    <div id="search-results"></div>
+    <div id="image-results"></div> <!-- To display images -->
+    <div id="document-results"></div> <!-- To display document files -->
+    
+    <!-- Display Recently Viewed Folders -->
+    <h3>Recently Viewed Folders</h3>
+    <div id="recent-folders">
+      <!-- Dynamic recently viewed folders will be appended here -->
+    </br>
     </div>
-    </main>
-    <footer>
-    <p>© 2024 Product Showcase</p>
-    </footer>
-    <script src="script.js"></script>
-    </body>
-    </html>
- <header>
- <h1>Product Showcase</h1>
- <select id="category-filter">
- <option value="all">All</option>
- <option value="Electronics">Electronics</option>
- <option value="chocolates">chocolates</option>
- <option value="Furniture">Furniture</option>
- </select>
- </header>
- <main>
- <div class="product-list">
- <div class="product" data-category="Electronics">
- <h3 class="product-title">Laptop</h3>
- <p>$500</p>
- <button class="btn-add-to-cart">Add to Cart</button>
- </div>
- <div class="product" data-category="Furniture">
- <h3 class="product-title">Chair</h3>
- <p>$100</p>
- <button class="btn-add-to-cart">Add to Cart</button>
- </div>
- <div class="product" data-category="Electronics">
- <h3 class="product-title">Smartphone</h3>
- <p>$300</p>
- <button class="btn-add-to-cart">Add to Cart</button>
- </div>
-<div class="product" data-category="chocolates">
-    <h3 class="product-title">chocolates</h3>
-    <p>$30</p>
-    <button class="btn-add-to-cart">Add to Cart</button>
-    </div> 
-</div>
-</div>
-</main>
-<footer>
-<p>© 2024 Product Showcase</p>
-</footer>
-<script src="script.js"></script>
+    
+    <!-- Clear Recent Folders Button -->
+    <button id="clear-recent-btn" onclick="clearRecentFolders()">Clear Recent Folders</button>
+  </div>
+  
+  <!-- Automated Backup Button -->
+  <button id="backup-btn" onclick="backupFiles()">Automated Backup</button>
+
+  <!-- Save Button -->
+  <button id="save-btn" onclick="saveFiles()">Save Files</button>
+
+  <footer>
+    <button id="home-btn" onclick="navigateHome()"><img src="https://cdn-icons-png.flaticon.com/128/69/69524.png" height="30"></button>
+    <button id="upload-btn" onclick="uploadFile()"><img src="https://cdn-icons-png.flaticon.com/128/18046/18046437.png" height="30"></button>
+    <button id="search-btn" onclick="performSearch()"><img src="https://cdn-icons-png.flaticon.com/128/2550/2550240.png" height="30"></button>
+    <button id="settings-btn" onclick="openSettings()"><img src="https://cdn-icons-png.flaticon.com/128/62/62319.png" height="30"></button>
+    <button class="add-btn" onclick="addNewItem()">+</button>
+  </footer>
+
+  <!-- Notifications Section -->
+  <div id="notifications-section">
+    <h2>Notifications</h2>
+    <ul id="notifications-list">
+      <!-- Dynamic notifications will be appended here -->
+    </ul>
+  </div>
+
+  <script>
+    let files = []; // This will store all files from the selected folder
+    let images = []; // This will store image files
+    let documents = []; // This will store document files like PDF, Word, etc.
+
+    // JavaScript to handle the folder input
+    document.getElementById("choose-folder").addEventListener("click", () => {
+      document.getElementById("folder-input").click(); // Trigger file input dialog
+    });
+
+    document.getElementById("folder-input").addEventListener("change", (event) => {
+      files = event.target.files; // Get selected files
+      const folderContentsDiv = document.getElementById("folder-contents");
+      const imageResultsDiv = document.getElementById("image-results");
+      const documentResultsDiv = document.getElementById("document-results");
+
+      // Clear previous contents
+      folderContentsDiv.innerHTML = "<h3>Folder Contents:</h3><ul>";
+      imageResultsDiv.innerHTML = "<h3>Image Files:</h3>";
+      documentResultsDiv.innerHTML = "<h3>Document Files (PDF, Word, etc.):</h3>";
+
+      // Loop through selected files and display their details
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileElement = document.createElement("div");
+        fileElement.classList.add("file-item");
+
+        // Display file name, size, and path
+        fileElement.innerHTML = ` 
+          <p class="file-name">${file.name}</p>
+          <p class="file-meta">Size: ${(file.size / 1024).toFixed(2)} KB</p>
+          <p class="file-meta">Path: ${file.webkitRelativePath}</p>
+        `;
+        
+        folderContentsDiv.appendChild(fileElement);
+
+        // If it's an image, display it
+        if (file.type.startsWith('image/')) {
+          const imgElement = document.createElement("img");
+          imgElement.src = URL.createObjectURL(file); // Create object URL for the image
+          imgElement.classList.add("image-item");
+
+          imageResultsDiv.appendChild(imgElement);
+          images.push(file); // Store the image file
+        }
+
+        // If it's a PDF or document, create a link to open it
+        if (file.type === 'application/pdf' || file.name.endsWith('.docx') || file.name.endsWith('.pptx')) {
+          const fileLink = document.createElement("a");
+          fileLink.href = URL.createObjectURL(file); // Create a link to the file
+          fileLink.classList.add("file-link");
+          fileLink.target = "_blank"; // Open the file in a new tab
+          fileLink.textContent = Open ${file.name};
+
+          documentResultsDiv.appendChild(fileLink);
+          documents.push(file); // Store the document file
+        }
+      }
+
+      // Store the folder in localStorage with current date-time
+      const folderPath = event.target.files[0].webkitRelativePath.split('/')[0]; // Get the folder name
+      const currentTime = new Date().toLocaleString(); // Get current date and time
+      saveRecentFolder(folderPath, currentTime);
+
+      // Show notification after upload
+      showNotification("One task added");
+    });
+
+    // Function to save recent folder to localStorage with time
+    function saveRecentFolder(folderPath, time) {
+      let recentFolders = JSON.parse(localStorage.getItem("recentFolders")) || [];
+      const folderData = { folderPath, time };
+
+      if (!recentFolders.some(item => item.folderPath === folderPath)) {
+        recentFolders.unshift(folderData); // Add the new folder to the beginning
+      }
+
+      if (recentFolders.length > 5) { // Keep only the latest 5 folders
+        recentFolders.pop();
+      }
+
+      localStorage.setItem("recentFolders", JSON.stringify(recentFolders));
+      displayRecentFolders();
+    }
+
+    // Function to display recently viewed folders with date and time
+    function displayRecentFolders() {
+      const recentFoldersDiv = document.getElementById("recent-folders");
+      const recentFolders = JSON.parse(localStorage.getItem("recentFolders")) || [];
+
+      recentFoldersDiv.innerHTML = ""; // Clear previous folder list
+
+      recentFolders.forEach((folder) => {
+        const folderElement = document.createElement("div");
+        folderElement.classList.add("recent-folder-item");
+        folderElement.textContent = ${folder.folderPath};
+        
+        // Display the date and time of the folder
+        const timeElement = document.createElement("p");
+        timeElement.classList.add("recent-folder-time");
+        timeElement.textContent = Viewed on: ${folder.time};
+        folderElement.appendChild(timeElement);
+
+        folderElement.addEventListener("click", () => {
+          alert(Opening ${folder.folderPath}...); // Implement folder opening logic here
+        });
+        recentFoldersDiv.appendChild(folderElement);
+      });
+    }
+
+    // Function to show notification
+    function showNotification(message) {
+      const notificationSection = document.getElementById("notifications-section");
+      const notificationList = document.getElementById("notifications-list");
+      notificationList.innerHTML = <li>${message}</li>;
+      notificationSection.style.display = "block"; // Show notification section
+
+      // Hide notification after 2 seconds
+      setTimeout(() => {
+        notificationSection.style.display = "none";
+      }, 2000);
+    }
+
+    // Function to clear recently viewed folders
+    function clearRecentFolders() {
+      localStorage.removeItem("recentFolders"); // Remove from localStorage
+      displayRecentFolders(); // Update the display
+    }
+
+    // Automated backup function
+    function backupFiles() {
+      alert("Backup functionality is not implemented yet! Files will be backed up to a cloud service.");
+      // Here, implement cloud backup functionality (e.g., using an API or external service)
+    }
+
+    // Save Files Function (Send files data to server/database)
+    function saveFiles() {
+      const filesData = files.map(file => {
+        return {
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          lastModified: file.lastModified
+        };
+      });
+
+      // Send files data to backend (e.g., using fetch)
+      fetch("/save-files", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(filesData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Files saved successfully:", data);
+        showNotification("Files saved successfully.");
+      })
+      .catch(error => {
+        console.error("Error saving files:", error);
+        showNotification("Error saving files.");
+      });
+    }
+
+    // Initialize the display of recent folders on page load
+    window.onload = () => {
+      displayRecentFolders();
+    };
+
+    // Footer Button Functions
+    function navigateHome() {
+      window.location.href = "/home"; // Replace with your home page route
+    }
+
+    function uploadFile() {
+      alert("Upload functionality can be implemented here.");
+    }
+
+    function openSettings() {
+      alert("Settings functionality can be implemented here.");
+    }
+
+    function addNewItem() {
+      alert("Functionality to add new item can be implemented here.");
+    }
+
+    // Notifications Button
+    function showNotifications() {
+      const notificationsSection = document.getElementById("notifications-section");
+      const notificationsList = document.getElementById("notifications-list");
+
+      notificationsSection.style.display = "block"; // Show notifications section
+
+      // Clear previous notifications (if any)
+      notificationsList.innerHTML = "";
+
+      // Check if there are notifications (you can replace this with real data)
+      const notifications = []; // Example: an empty array means no notifications
+
+      if (notifications.length === 0) {
+        const noNotification = document.createElement("li");
+        noNotification.textContent = "No notifications at the moment!";
+        notificationsList.appendChild(noNotification);
+
+        // Hide notifications section after 3 seconds
+        setTimeout(() => {
+          notificationsSection.style.display = "none";
+        }, 3000);
+      } else {
+        notifications.forEach((notification) => {
+          const notificationItem = document.createElement("li");
+          notificationItem.textContent = notification;
+          notificationsList.appendChild(notificationItem);
+        });
+      }
+    }
+
+    // Suggestions Button
+    function showSuggestions() {
+      alert("Showing Suggestions..."); // Placeholder alert for suggestions
+    }
+  </script>
 </body>
 </html>
